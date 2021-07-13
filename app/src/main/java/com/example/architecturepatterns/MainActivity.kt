@@ -17,12 +17,30 @@ class MainActivity : AppCompatActivity(), View {
         setContentView(binding.root)
         presenter = MainActivityPresenter(this)
 
+        adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_checked,
+            android.R.id.text1,
+            mutableListOf()
+        )
+        binding.tasksListView.adapter = adapter
+
+        binding.tasksListView.setOnItemClickListener { _, _, position, _ ->
+
+            val checkedPositions = binding.tasksListView.checkedItemPositions;
+            if (checkedPositions.get(position)) {
+                presenter.removeTask(position)
+            }
+            binding.tasksListView.setItemChecked(position, false)
+        }
+
         binding.addButton.setOnClickListener {
             presenter.addTask(binding.taskEditText.editableText.toString())
         }
     }
 
     override fun updateListView(tasks: List<String>) {
+        adapter.clear()
         adapter.addAll(tasks)
         //TODO cokolwiek
         adapter.notifyDataSetChanged()
