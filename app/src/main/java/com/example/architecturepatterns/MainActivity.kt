@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity(), View {
     }
 
     override fun updateListView(tasks: List<String>) {
-        adapter.clear()
         adapter.addAll(tasks)
+        //TODO cokolwiek
         adapter.notifyDataSetChanged()
     }
 }
