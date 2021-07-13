@@ -2,7 +2,6 @@ package com.example.architecturepatterns
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import com.example.architecturepatterns.databinding.ActivityMainBinding
 
@@ -43,6 +42,7 @@ class MainActivity : AppCompatActivity(), View {
     override fun updateListView(tasks: List<String>) {
         adapter.clear()
         adapter.addAll(tasks)
+        //TODO cokolwiek
         adapter.notifyDataSetChanged()
     }
 }
