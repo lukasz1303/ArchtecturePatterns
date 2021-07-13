@@ -3,27 +3,26 @@ package com.example.architecturepatterns
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.example.architecturepatterns.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View {
 
     private lateinit var presenter: MainActivityPresenter
-    private lateinit var taskEditText: EditText
-    private lateinit var addButton: Button
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         presenter = MainActivityPresenter(this)
-        taskEditText = findViewById(R.id.task_edit_text)
-        addButton = findViewById(R.id.add_button)
 
         val listView = findViewById<ListView>(R.id.tasks_list_view)
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mutableListOf())
         listView.adapter = adapter
 
-        addButton.setOnClickListener {
-            presenter.addTask(taskEditText.editableText.toString())
+        binding.addButton.setOnClickListener {
+            presenter.addTask(binding.taskEditText.editableText.toString())
         }
     }
 
