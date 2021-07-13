@@ -1,5 +1,5 @@
 package com.example.architecturepatterns
 
 interface View {
-    fun updateListView()
+    fun updateListView(tasks: List<String>)
 }

@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), View {
         addButton = findViewById(R.id.add_button)
 
         val listView = findViewById<ListView>(R.id.tasks_list_view)
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, presenter.tasks)
+        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mutableListOf())
         listView.adapter = adapter
 
         addButton.setOnClickListener {
@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity(), View {
         }
     }
 
-    override fun updateListView() {
+    override fun updateListView(tasks: List<String>) {
+        adapter.clear()
+        adapter.addAll(tasks)
         adapter.notifyDataSetChanged()
     }
 }

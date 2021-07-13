@@ -2,10 +2,10 @@ package com.example.architecturepatterns
 
 class MainActivityPresenter(private val view: View) {
 
-    val tasks: MutableList<String> = mutableListOf()
+    private val model = Model()
 
     fun addTask(name: String){
-        tasks.add(name)
-        view.updateListView()
+        model.addTask(name)
+        view.updateListView(model.tasks)
     }
 }
