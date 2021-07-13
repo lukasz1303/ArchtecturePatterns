@@ -17,10 +17,6 @@ class MainActivity : AppCompatActivity(), View {
         setContentView(binding.root)
         presenter = MainActivityPresenter(this)
 
-        val listView = findViewById<ListView>(R.id.tasks_list_view)
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mutableListOf())
-        listView.adapter = adapter
-
         binding.addButton.setOnClickListener {
             presenter.addTask(binding.taskEditText.editableText.toString())
         }
