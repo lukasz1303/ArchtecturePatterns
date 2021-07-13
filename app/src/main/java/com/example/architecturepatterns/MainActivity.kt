@@ -2,6 +2,7 @@ package com.example.architecturepatterns
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import com.example.architecturepatterns.databinding.ActivityMainBinding
 
@@ -17,9 +18,22 @@ class MainActivity : AppCompatActivity(), View {
         setContentView(binding.root)
         presenter = MainActivityPresenter(this)
 
-        val listView = findViewById<ListView>(R.id.tasks_list_view)
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mutableListOf())
-        listView.adapter = adapter
+        adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_checked,
+            android.R.id.text1,
+            mutableListOf()
+        )
+        binding.tasksListView.adapter = adapter
+
+        binding.tasksListView.setOnItemClickListener { _, _, position, _ ->
+
+            val checkedPositions = binding.tasksListView.checkedItemPositions;
+            if (checkedPositions.get(position)) {
+                presenter.removeTask(position)
+            }
+            binding.tasksListView.setItemChecked(position, false)
+        }
 
         binding.addButton.setOnClickListener {
             presenter.addTask(binding.taskEditText.editableText.toString())
